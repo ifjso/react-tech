@@ -1,68 +1,116 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Hooks
 
-## Available Scripts
+함수형 컴포넌트에서 할 수 없었던 다양한 작업을 할 수 있게 해줌
 
-In the project directory, you can run:
+### useState
 
-### `npm start`
+- 함수형 컴포넌트에서 상태 관리가 필요할 때 사용
+- 하나의 컴포넌트에서 여러 상태를 관리하려면 여러번 사용하면 된다.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```javascript
+const [value, setValue] = useState(initialValue);
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### useEffect
 
-### `npm test`
+- 컴포넌트가 렌더릴될 때마다 특정 작업을 수행
+- componentDidMount, componentDidUpdate를 합찬 형태
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+useEffect(() => {
+  console.log('effect');
+  console.log({
+    name,
+    nickname
+  })
+});
 
-### `npm run build`
+useEffect(() => console.log('마운트될 때만 실행됩니다.'), []);
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// name의 값이 업데이트될 때만 작업 실행
+useEffect(() => console.log(name), [name]);
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+// 컴포넌트가 언마운트되기 전이나 업데이트 되기 직전에 특정 작업을 하기 위해 
+// 뒷정리(cleanup) 함수 반환
+useEffect(() => {
+  console.log('effect');
+  console.log(name);
+  return () => {
+    console.log('cleanup');
+    console.log(name);
+  }
+})
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### useReducer
+- useState보다 더 다양한 컴포넌트 상황에 따라 다양한 상태를 다른 값으로 업데이트 할 때 사용
 
-### `npm run eject`
+```javascript
+const reducer = (state, action) => {
+  swtich (action.type) {
+    case 'INCREMENT':
+      return { value: state.value + 1};
+    case 'DECREMENT':
+      return { value: state.value - 1};
+    default:
+      return { ...state };
+  }
+};
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const [state, dispatch] = useReducer(reducer, initialState);
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+dispatch({ type: 'INCREMENT' });
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### useMemo
+- 함수형 컴포넌트 내부에서 발생하는 연산 최적화를 위해 사용
+- 렌더링하는 과정에서 특정 값이 바뀌었을 때만 연산을 실행
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+const avg = useMemo(() => getAverage(list), [list]);
 
-## Learn More
+return (
+  <div>{avg}<div>
+);
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### useCallback
+- useMemo와 같은 개념으로 함수를 재사용할 때 사용
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+// 컴포넌트가 처음 렌더링될 때만 함수 생성
+const onChange = useCallback((e) => setNumber(e.target.value), []);
 
-### Code Splitting
+const onInsert = useCallback(() => {
+  const nextList = list.concat(parseInt(number));
+  setList(nextList);
+  setNumber('');
+}, [number, list]);   // number 또는 list가 바뀌었을 때만 함수 생성
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### useRef
+- 함수형 컴포넌트에서 ref를 쉽게 사용할 수 있도록 해줌
 
-### Analyzing the Bundle Size
+```javascript
+const button = useRef(null);
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+return (
+  <button ref={button}>
+);
+```
 
-### Making a Progressive Web App
+### Custom Hooks
+- 여러 컴포넌트에서 비슷한 기능을 공유할 경우 직접 Hook를 만들 수 있음
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```javascript
+const reducer = (state, action) => ({
+  ...state, [action.name]: action.value
+});
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+// Custom Hook
+const useInputs = (initialForm) => {
+  const [state, dispatch] = useReducer(reducer, initialForm);
+  const onChange = e => dispatch(e.target);
+  return [state, onChange];
+};
+```
