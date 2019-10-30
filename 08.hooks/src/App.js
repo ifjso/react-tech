@@ -1,6 +1,6 @@
 import React from 'react';
-import Counter from './Counter';
+import Info from './Info';
 
-const App = () => <Counter />;
+const App = () => <Info />;
 
 export default App;
