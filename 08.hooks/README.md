@@ -13,7 +13,7 @@ const [value, setValue] = useState(initialValue);
 
 ### useEffect
 
-- 컴포넌트가 렌더릴될 때마다 특정 작업을 수행
+- 컴포넌트가 렌더링될 때마다 특정 작업을 수행
 - componentDidMount, componentDidUpdate를 합찬 형태
 
 ```javascript
