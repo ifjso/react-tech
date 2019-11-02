@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css'
+import './App.css';
 
 function App() {
   const name = '리액트';
@@ -11,8 +11,7 @@ function App() {
       >
         {name}
       </div>
-      // 하지만 이런 주석이나
-      /* 이런 주석은 페이지에 그대로 나타나게 됩니다. */
+      // 하지만 이런 주석이나 /* 이런 주석은 페이지에 그대로 나타나게 됩니다. */
       <input />
     </>
   );
