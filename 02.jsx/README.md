@@ -73,7 +73,17 @@ function App() {
 ```JSX
 function App() {
   const name = undefined;
-  return { name || 'React'}
+  return name || 'React';
+}
+
+function App() {
+  const name = undefined;
+  return <div>{name}</div>;
+}
+
+function App() {
+  const name = undefined;
+  return <div>{name || 'React'}</div>
 }
 ```
 
