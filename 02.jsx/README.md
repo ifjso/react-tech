@@ -1,68 +1,144 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## JSX
 
-## Available Scripts
+- 자바스크립트 문법의 확장판
+- React에서의 Element를 제공
 
-In the project directory, you can run:
+### 장점
 
-### `npm start`
+- 보기 쉽고 익숙하다.
+- 더욱 높은 활용도 (component in component)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 문법
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- 감싸인 요소
 
-### `npm test`
+```JSX
+return (
+  <div>
+    <h1>Hello React!</h1>
+    <h1>Hello</h1>
+  </div>
+)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+return (
+  <Fragment>
+    <h1>Hello React!</h1>
+    <h1>Hello</h1>
+  </Fragment>
+)
 
-### `npm run build`
+return (
+  <>
+    <h1>Hello React!</h1>
+    <h1>Hello</h1>
+  </>
+)
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 자바스크립트 표현
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```JSX
+function App() {
+  const name = 'React';
+  return (
+    <>
+      <h1>Hello {name}!</h1>
+      <h1>Hello</h1>
+    </>
+  )
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- if 문 대신 조건부 연산자
 
-### `npm run eject`
+```JSX
+function App() {
+  const name = 'React';
+  return (
+    <div>
+      { name === 'React' ? <h1>React 입니다.</h1> : <h1>React가 아닙니다.</h1> }
+    </div>
+    )
+  )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+function App() {
+  const name = 'React';
+  return <div>{ name === 'React' && <h1>React 입니다.</h1>}</div>
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- undefined를 렌더링하지 않기
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```JSX
+function App() {
+  const name = undefined;
+  return { name || 'React'}
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 인라인 스타일링
 
-## Learn More
+```JSX
+function App() {
+  const name = 'React';
+  return (
+    <div
+      style={{
+        backgroundColor: 'black',
+        color: 'aqua',
+        fontSize: '48px',
+        fontWeight: 'bold',
+        padding: 16
+      }}
+    >
+      {name}
+    </div>
+  )
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- class 대신 className
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```JSX
+function App() {
+  const name = 'React';
+  return <div className="react">{name}</div>
+}
+```
 
-### Code Splitting
+- 꼭 닫아야 하는 태그
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```JSX
+function App() {
+  const name = 'React';
+  return (
+    <>
+      <div className="react">{name}</div>
+      <input />
+      <br />
+    </>
+  )
+}
+```
 
-### Analyzing the Bundle Size
+- 주석
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```JSX
+function App() {
+  const name = 'React';
+  return (
+    <>
+      {/* 주석입니다. */}
+      <div
+        className="react" // 주석입니다.
+      >
+        {name}
+      </div>
+      // 주석이 아닙니다.
+      /* 주석이 아닙니다. */
+      <input />
+    </>
+  )
+}
+```
