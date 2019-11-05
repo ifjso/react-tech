@@ -1,10 +1,6 @@
 import React from "react";
-import MyComponent from "./MyComponent";
+import Counter from "./Counter";
 
-const App = () => (
-  <MyComponent name="React" favoriteNumber={4}>
-    리액트
-  </MyComponent>
-);
+const App = () => <Counter />;
 
 export default App;
