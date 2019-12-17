@@ -1,5 +1,5 @@
 {
-  "name": "10.schedule-manager",
+  "name": "10.todo-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
