@@ -23,6 +23,7 @@ const NewsList = ({ category }) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+
       try {
         const query = category === 'all' ? '' : `&category=${category}`;
         const response = await axios.get(
