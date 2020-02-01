@@ -10,11 +10,11 @@ const counter = (state = initialState, action) => {
   switch (action.type) {
     case INCREASE:
       return {
-        number: state.number + 1,
+        number: state.number + 1
       };
     case DECREASE:
       return {
-        number: state.number - 1,
+        number: state.number - 1
       };
     default:
       return state;

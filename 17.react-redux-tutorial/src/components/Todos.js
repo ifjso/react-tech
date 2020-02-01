@@ -16,7 +16,7 @@ const Todos = ({
   onChangeInput,
   onInsert,
   onToggle,
-  onRemove,
+  onRemove
 }) => {
   const onSubmit = e => e.preventDefault();
 
