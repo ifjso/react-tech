@@ -43,7 +43,7 @@ const todos = handleActions(
       }),
     [REMOVE]: (state, { payload: id }) =>
       produce(state, draft => {
-        const index = draft.todos.findIndex(todo => todo.id !== id);
+        const index = draft.todos.findIndex(todo => todo.id === id);
         draft.todos.splice(index, 1);
       })
   },
