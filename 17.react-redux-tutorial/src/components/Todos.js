@@ -41,7 +41,12 @@ const Todos = ({
       </form>
       <div>
         {todos.map(todo => (
-          <TodoItem todo={todo} onToggle={onToggle} onRemove={onRemove} />
+          <TodoItem
+            todo={todo}
+            key={todo.id}
+            onToggle={onToggle}
+            onRemove={onRemove}
+          />
         ))}
       </div>
     </div>
