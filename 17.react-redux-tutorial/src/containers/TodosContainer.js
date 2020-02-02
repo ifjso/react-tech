@@ -4,8 +4,10 @@ import { changeInput, insert, toggle, remove } from '../modules/todos';
 import Todos from '../components/Todos';
 
 const TodosContainer = () => {
-  const input = useSelector(state => state.todos.input);
-  const todos = useSelector(state => state.todos.todos);
+  const { input, todos } = useSelector(({ todos }) => ({
+    input: todos.input,
+    todos: todos.todos
+  }));
   const dispatch = useDispatch();
   const onChangeInput = useCallback(input => dispatch(changeInput(input)), [
     dispatch
