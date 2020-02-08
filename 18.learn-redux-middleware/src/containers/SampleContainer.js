@@ -5,8 +5,15 @@ import { getPost, getUsers, GET_POST, GET_USERS } from '../modules/sample';
 
 const SampleContainer = ({ getPost, getUsers, post, users, loadingPost, loadingUsers }) => {
   useEffect(() => {
-    getPost(1);
-    getUsers(1);
+    const fn = async () => {
+      try {
+        await getPost(1);
+        await getUsers(1);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fn();
   }, [getPost, getUsers]);
   return <Sample post={post} users={users} loadingPost={loadingPost} loadingUsers={loadingUsers} />;
 };
