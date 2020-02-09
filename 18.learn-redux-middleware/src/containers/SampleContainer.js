@@ -8,7 +8,7 @@ const SampleContainer = ({ getPost, getUsers, post, users, loadingPost, loadingU
     const fn = async () => {
       try {
         await getPost(1);
-        await getUsers(1);
+        await getUsers();
       } catch (e) {
         console.log(e);
       }
