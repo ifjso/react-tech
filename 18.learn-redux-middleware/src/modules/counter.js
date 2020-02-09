@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { delay, put, takeEvery, takeLatest, select } from 'redux-saga/effects';
+import { delay, put, takeLatest, select, throttle } from 'redux-saga/effects';
 
 const INCREASE = 'counter/INCREASE';
 const DECREASE = 'counter/DECREASE';
@@ -25,7 +25,7 @@ function* decreaseSaga() {
 }
 
 export function* counterSaga() {
-  yield takeEvery(INCREASE_ASYNC, increaseSaga);
+  yield throttle(3000, INCREASE_ASYNC, increaseSaga);
   yield takeLatest(DECREASE_ASYNC, decreaseSaga);
 }
 
